@@ -1,0 +1,7 @@
+{
+  "name": "WebServiceProject",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
