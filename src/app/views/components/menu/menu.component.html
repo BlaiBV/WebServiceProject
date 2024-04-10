@@ -1,3 +1,41 @@
-<p>
-  menu works!
-</p>
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>PokeMenú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-menu-toggle>
+        <ion-item [routerLink]="['/home']" [routerLinkActive]="['activatedLink']">
+          <ion-label> Inici</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item [routerLink]="['/pokedex']" [routerLinkActive]="['activatedLink']">
+          <ion-label> PokeDex</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item [routerLink]="['/tipus-pokemon']" [routerLinkActive]="['activatedLink']">
+          <ion-label> Tipus</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item [routerLink]="['/atac-pokemon']" [routerLinkActive]="['activatedLink']">
+          <ion-label> Atacs</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item [routerLink]="['/regio']" [routerLinkActive]="['activatedLink']">
+          <ion-label> Regions</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item [routerLink]="['/equip']" [routerLinkActive]="['activatedLink']">
+          <ion-label> Equip</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+</ion-menu>
