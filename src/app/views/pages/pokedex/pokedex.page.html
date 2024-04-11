@@ -9,7 +9,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <ion-card class="ion-padding" *ngFor = "let pokemon of allPokemon;">
+    {{pokemon}}
+  </ion-card>
+
   <!--TODO: La icona la hem de fer mb android-->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" [routerLink]="['/filtre']" [routerLinkActive]="['activatedLink']" >
     <ion-fab-button>

@@ -9,6 +9,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MenuComponent } from './views/components/menu/menu.component';
 import { FooterComponent } from './views/components/footer/footer.component';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +20,9 @@ import { FooterComponent } from './views/components/footer/footer.component';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule],
+    AppRoutingModule,
+    HttpClientModule,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

@@ -9,6 +9,45 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <ion-card class="ion-padding">
+    <div class="m-3">
+      <ion-input type="text" class="form-control" placeholder="Id" aria-label="Id" [(ngModel)]="id"></ion-input>
+    </div>
+    
+    <div class="clearfix">
+      <ion-button type="button" class="float-end m-3 btn btn-success" (click)="retrievePokemon()">Consultar</ion-button>
+    </div>
+  </ion-card>
+
+
+  <div *ngIf="pokemon">
+    <ion-img src="{{pokemon.imgURL}}"></ion-img>
+    <ion-list>
+      <ion-item>
+        <ion-label>El nom és: {{pokemon.name}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          El tipus és:
+          <span *ngFor = "let tipus of pokemon.types;">
+            {{tipus}},
+          </span>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>L'alçada és: {{pokemon.height}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>El pes és: {{pokemon.weight}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  
+
+  <div class="m-3 p-3 text-bg-danger" *ngIf="hasError">
+    Error, no s'ha trobat la cançó
+  </div>
 
 </ion-content>
