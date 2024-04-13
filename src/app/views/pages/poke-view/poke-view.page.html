@@ -10,18 +10,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-
-  <ion-card class="ion-padding">
-    <div class="m-3">
-      <ion-input type="text" class="form-control" placeholder="Id" aria-label="Id" [(ngModel)]="id"></ion-input>
-    </div>
-    
-    <div class="clearfix">
-      <ion-button type="button" class="float-end m-3 btn btn-success" (click)="retrievePokemon()">Consultar</ion-button>
-    </div>
-  </ion-card>
-
-
+  
   <div *ngIf="pokemon">
     <ion-img src="{{pokemon.imgURL}}"></ion-img>
     <ion-list>

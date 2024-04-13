@@ -11,8 +11,11 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
 
-  <ion-card class="ion-padding" *ngFor = "let pokemon of allPokemon;">
-    {{pokemon}}
+  <ion-card class="ion-padding" *ngFor = "let pokemon of allPokemon;" [routerLink]="['/poke-view', pokemon.id]">
+    <ion-img src="{{pokemon.imgURL}}"></ion-img>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center ion-text-uppercase">{{pokemon.name}}</ion-card-title>
+    </ion-card-header>
   </ion-card>
 
   <!--TODO: La icona la hem de fer mb android-->
