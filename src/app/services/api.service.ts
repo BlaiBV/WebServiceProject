@@ -19,7 +19,7 @@ export class ApiService {
   }
 
   getPokemon(id: number): Observable<any[]> {
-    return this.http.get<any[]>(this.url_pokemon + id);
+    return this.http.get<any[]>(this.url_pokemon + id +"/");
   }
 
 

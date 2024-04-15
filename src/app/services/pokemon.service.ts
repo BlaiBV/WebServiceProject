@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Pokemon } from '../models/pokemon';
 import { ApiService } from './api.service';
 import { Minipokemon } from '../models/minipokemon';
+import { LoadingController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,23 @@ export class PokemonService {
   private _pokemon: Pokemon | null = null;
   private _allPokemon: Minipokemon[] = []; // Array de pokemons amb informació abreujada
   private _error: boolean = false;
+  public loading: any;
   
-  constructor(private _apiServcie: ApiService) { }
+  constructor(private _apiServcie: ApiService, private loadingCtrl: LoadingController) { }
+
+  async showLoading() {
+    this.loading = await this.loadingCtrl.create({
+      message: 'Estem buscant els pokèmons :)'
+    });
+    this.loading.present();
+  }
 
   retrieveAllPokemon () {
+    //this.showLoading();
     this._apiServcie.allPokemon.subscribe(
       (response: any) => {
+        //console.log(response)
+        //this._allPokemon = response
         for (let i: number = 0; i < response.results.length; i++) {
           // Construïm un minipokemon per elements de la llista results
           let mini: Minipokemon = new Minipokemon;
@@ -32,6 +44,7 @@ export class PokemonService {
 
           this._allPokemon.push(mini); // Afegim a l'array de pokemons
         }
+        //this.loading.dismiss();
       }, (error) => {}
     );
   }

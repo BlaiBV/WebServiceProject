@@ -1,32 +1,32 @@
 import { Injectable } from '@angular/core';
+import { Filesystem, FilesystemDirectory, FilesystemEncoding } from '@capacitor/filesystem';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilesService {
 
-  constructor() {
-    //this.fileAppend();
-    this.fileRead();
-   }
+  constructor() {}
 
    async fileAppend() {
     await Filesystem.appendFile({
-      path: 'text.txt',
-      data: "MORE TESTS",
+      path: 'text1.txt',
+      data: "Nova prova",
       directory: FilesystemDirectory.Documents,
       encoding: FilesystemEncoding.UTF8
       
     });
-    console.log("exito");
+    console.log("Perfecte");
   }
   
    async fileRead() {
     let contents = await Filesystem.readFile({
-      path: 'ol.txt',
+      path: 'text1.txt',
       directory: FilesystemDirectory.Documents,
       encoding: FilesystemEncoding.UTF8
     });
     console.log(contents);
   }
+
+
 }
