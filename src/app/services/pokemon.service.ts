@@ -3,6 +3,8 @@ import { Pokemon } from '../models/pokemon';
 import { ApiService } from './api.service';
 import { Minipokemon } from '../models/minipokemon';
 import { LoadingController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
+import { Atributs } from '../models/atributs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +12,13 @@ import { LoadingController } from '@ionic/angular';
 export class PokemonService {
 
   private _pokemon: Pokemon | null = null;
-  private _allPokemon: Minipokemon[] = []; // Array de pokemons amb informació abreujada
+  private _allPokemon: Atributs[] = []; // Array de pokemons amb informació abreujada
   private _error: boolean = false;
   public loading: any;
   
-  constructor(private _apiServcie: ApiService, private loadingCtrl: LoadingController) { }
+  constructor(private _apiServcie: ApiService, private loadingCtrl: LoadingController, private http: HttpClient) {
+    this.retrieveAllPokemon();
+   }
 
   async showLoading() {
     this.loading = await this.loadingCtrl.create({
@@ -27,24 +31,19 @@ export class PokemonService {
     //this.showLoading();
     this._apiServcie.allPokemon.subscribe(
       (response: any) => {
-        //console.log(response)
-        //this._allPokemon = response
-        for (let i: number = 0; i < response.results.length; i++) {
-          // Construïm un minipokemon per elements de la llista results
-          let mini: Minipokemon = new Minipokemon;
-          mini.url = response.results[i].url;
-          mini.name = response.results[i].name;
-
-          // Extraíem la id del pokemon de la id
-          let url_array = mini.url.split('/');
-          mini.id = parseInt(url_array[url_array.length-2]);
-
-          // Muntem la url de la imatge amb la id
-          mini.imgURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/' + mini.id + '.png';
-
-          this._allPokemon.push(mini); // Afegim a l'array de pokemons
+        for (let index = 0; index < response.results.length; index++) {
+          this.http.get<any[]>(response.results[index].url).subscribe({
+            next: (value: any) => {
+              this._allPokemon.push(value);
+            },
+            error: () =>{
+              console.log("Error");
+            },
+            complete: () => {}
+          });
         }
         //this.loading.dismiss();
+        console.log(this._allPokemon);
       }, (error) => {}
     );
   }
@@ -93,6 +92,6 @@ export class PokemonService {
   })*/
 
   get pokemon(): Pokemon | null { return this._pokemon; }
-  get allPokemon(): Minipokemon[] {return this._allPokemon; }
+  get allPokemon(): Atributs[] {return this._allPokemon; }
   get hasError(): boolean { return this._error; }
 }

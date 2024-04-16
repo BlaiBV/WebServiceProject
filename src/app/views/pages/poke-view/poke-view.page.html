@@ -12,7 +12,7 @@
 <ion-content [fullscreen]="true" class="ion-padding">
   
   <div *ngIf="pokemon">
-    <ion-img src="{{pokemon.imgURL}}"></ion-img>
+    <ion-img [src]="pokemon.imgURL"></ion-img>
     <ion-list>
       <ion-item>
         <ion-label>El nom és: {{pokemon.name}}</ion-label>

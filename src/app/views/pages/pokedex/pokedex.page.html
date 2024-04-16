@@ -10,15 +10,26 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-
+<ion-searchbar [(ngModel)]="_search"></ion-searchbar>
   <ion-card class="ion-padding" *ngFor = "let pokemon of allPokemon;" [routerLink]="['/poke-view', pokemon.id]">
-    <ion-img src="{{pokemon.imgURL}}"></ion-img>
     <ion-card-header>
-      <ion-card-title class="ion-text-center ion-text-uppercase">{{pokemon.name}}</ion-card-title>
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="auto">
+            <ion-img [src]="pokemon.sprites.front_default"></ion-img>
+          </ion-col>
+          <ion-col >
+            <ion-card-title class="ion-text-uppercase">{{pokemon.name}}</ion-card-title>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-header>
   </ion-card>
+ <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
-  <!--TODO: La icona la hem de fer mb android-->
+  <!--TODO: La icona la hem de fer amb android-->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" [routerLink]="['/filtre']" [routerLinkActive]="['activatedLink']" >
     <ion-fab-button>
       <ion-icon name="chevron-up-circle"></ion-icon>

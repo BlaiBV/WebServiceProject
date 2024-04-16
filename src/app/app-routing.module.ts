@@ -12,6 +12,11 @@ const routes: Routes = [
   {path: 'filtre',loadChildren: () => import('./views/pages/filtre/filtre.module').then( m => m.FiltrePageModule)},
   {path: '',redirectTo: 'home',pathMatch: 'full'},
   {path: '**',loadChildren: () => import('./views/pages/page-not-found/page-not-found.module').then( m => m.PageNotFoundPageModule)},
+  {
+    path: 'barcode-scanner',
+    loadChildren: () => import('./views/pages/barcode-scanner/barcode-scanner.module').then( m => m.BarcodeScannerPageModule)
+  },
+
 
 
 
