@@ -10,9 +10,34 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!--<swiper-container>
-    <swiper-slide>Slide 1</swiper-slide>
-    <swiper-slide>Slide 2</swiper-slide>
-    <swiper-slide>Slide 3</swiper-slide>
-  </swiper-container>-->
+  <swiper-container [pagination] = true>
+    <swiper-slide *ngFor="let foto of fotos"><img [src]="foto" alt="pokefoto"></swiper-slide>
+  </swiper-container>
+
+  <div class="ion-text-justify" id="data">
+    <ion-grid>
+      <ion-row class="ion-align-items-center" id="title">
+        <ion-col class="ion-text-end">
+          <img [src]="pokeball" class="pokeball">
+        </ion-col>
+        <ion-col class="ion-text-center">
+          <h1>WikiDex</h1>
+        </ion-col>
+        <ion-col class="ion-text-start">
+          <img [src]="pokeball" class="pokeball">
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p>Benvolguts a tots i totes a la nostra Viquipèdia Pokémon. Aquí trobareu totes les dades necessàries de tots i cadascún dels pokémon que existeixen! Inclús podreu fer el vostre equip personalitzat.</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div>
+    <ion-buttons>
+
+    </ion-buttons>
+  </div>
 </ion-content>
