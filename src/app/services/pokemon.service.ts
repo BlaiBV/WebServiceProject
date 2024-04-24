@@ -18,6 +18,7 @@ export class PokemonService {
   private _pokemon: Pokemon | null = null;
   //private _pokemonRemaster: Atributs | null = null;
   private _allPokemon: Atributs[] = []; // Array de pokemons amb informació abreujada
+  private _unfilteredPokemons: Atributs[] = [];
   private _allTypes: Type[] = [];
   private _allRegion: Region[] = [];
   private _typePokemons: Atributs[] = [];
@@ -27,6 +28,7 @@ export class PokemonService {
   private _error: boolean = false;
   public loading: any;
   public _allPokemonsCreated: boolean = false;
+  public _filtratge: number = 0;
 
   constructor(private _apiService: ApiService, private loadingCtrl: LoadingController, private http: HttpClient) {
     this.retriveAllTypes();
@@ -287,8 +289,22 @@ export class PokemonService {
   }
 
   filterPokemons(event: any){
+    this._filtratge++;
+
     const query = event.target.value.toLowerCase();
-    this._allPokemon = this._allPokemon.filter((p) => p.name.toLowerCase().includes(query));
+    console.log(query);
+
+    if (this._filtratge == 1) {
+      this._unfilteredPokemons= this._allPokemon;
+    }
+
+    this._allPokemon = this._allPokemon.filter(p => p.name.toLowerCase().includes(query));
+
+    if (event.target.value == "") {
+      this._allPokemon = this._unfilteredPokemons;
+      this._unfilteredPokemons = [];
+      this._filtratge = 0;
+    }
   }
 
   //get pokemonremaster(): Atributs | null { return this._pokemonRemaster; }

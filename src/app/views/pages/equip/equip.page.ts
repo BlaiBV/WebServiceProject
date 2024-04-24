@@ -13,7 +13,7 @@ export class EquipPage /*implements OnInit*/ {
   //ngOnInit() {}
 
   crearFitxer(){
-    this._filesService.fileAppend();
-    this._filesService.fileRead();
+    this._filesService.writeToFile();
+    this._filesService.readFromFile();
   }
 }

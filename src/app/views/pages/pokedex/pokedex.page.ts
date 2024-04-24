@@ -10,14 +10,14 @@ import { Atributs } from 'src/app/models/atributs';
   templateUrl: './pokedex.page.html',
   styleUrls: ['./pokedex.page.scss'],
 })
-export class PokedexPage implements OnInit {
+export class PokedexPage /*implements OnInit*/ {
   public _search: string = '';
   public array: Atributs[] = [];
   public cont: number = 0;
   constructor(private pokemonService: PokemonService) {
   }
 
-  ngOnInit() {}
+  //ngOnInit() {}
 
   doInfinite(ev: any) {
     console.log('Begin async operation');
