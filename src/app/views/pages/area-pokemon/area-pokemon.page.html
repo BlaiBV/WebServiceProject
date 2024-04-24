@@ -3,14 +3,12 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>
-      Tipus: {{type_name}}
-    </ion-title>
+    <ion-title>Area: {{area_name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <ion-card class="ion-padding" *ngFor = "let pokemon of typePokemons;" [routerLink]="['/poke-view', pokemon.id]">
+  <ion-card class="ion-padding" *ngFor = "let pokemon of areaPokemons;">
     <ion-card-header>
       <ion-grid>
         <ion-row class="ion-align-items-center">

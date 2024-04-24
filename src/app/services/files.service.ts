@@ -8,7 +8,7 @@ export class FilesService {
 
   private _odata: any;
   constructor() {}
-
+  
   async writeToFile(): Promise<boolean> {
     let result: WriteFileResult = await Filesystem.writeFile({
       path: 'text1.txt',

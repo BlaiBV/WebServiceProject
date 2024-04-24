@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { PokedexPageRoutingModule } from './pokedex-routing.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 import { PokedexPage } from './pokedex.page';
 
@@ -13,7 +14,8 @@ import { PokedexPage } from './pokedex.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    PokedexPageRoutingModule
+    PokedexPageRoutingModule,
+    FontAwesomeModule
   ],
   declarations: [PokedexPage]
 })

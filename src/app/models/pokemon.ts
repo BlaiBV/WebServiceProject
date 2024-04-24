@@ -14,11 +14,14 @@ export class Pokemon {
     private _attack: number;
     private _defense: number;
     private _specialAttack: number;
+    private _specialDefense: number;
     private _speed: number;
+    private _abilities: string[];
 
     // Altres dades
     private _captureRate: number; // species
-    private _evolutionChain: string[]; // species // Les evolucions les treiem de: https://pokeapi.co/api/v2/evolution-chain/1/
+    private _evolutionChain: string; // species // Les evolucions les treiem de: https://pokeapi.co/api/v2/evolution-chain/1/
+    private _evolutions: number[];
 
     // Els llocs on es troba https://pokeapi.co/api/v2/pokemon/1/encounters
 
@@ -34,9 +37,12 @@ export class Pokemon {
         this._attack = 0;
         this._defense = 0;
         this._specialAttack = 0;
+        this._specialDefense = 0;
         this._speed = 0;
+        this._abilities = [];
         this._captureRate = 0;
-        this._evolutionChain = [];
+        this._evolutionChain = "";
+        this._evolutions = [];
     }
 
 
@@ -73,14 +79,23 @@ export class Pokemon {
     get specialAttack(): number {
         return this._specialAttack;
     }
+    get specialDefense(): number {
+        return this._specialDefense;
+    }
     get speed(): number {
         return this._speed;
+    }
+    get abilities(): string[] {
+        return this._abilities;
     }
     get captureRate(): number {
         return this._captureRate;
     }
-    get evolutionChain(): string[] {
+    get evolutionChain(): string {
         return this._evolutionChain;
+    }
+    get evolutions(): number[] {
+        return this._evolutions;
     }
 
 
@@ -117,13 +132,22 @@ export class Pokemon {
     set specialAttack(value: number) {
         this._specialAttack = value;
     }
+    set specialDefense(value: number) {
+        this._specialDefense = value;
+    }
     set speed(value: number) {
         this._speed = value;
+    }
+    set abilities(value: string[]) {
+        this._abilities = value; 
     }
     set captureRate(value: number) {
         this._captureRate = value;
     }
-    set evolutionChain(value: string[]) {
+    set evolutionChain(value: string) {
         this._evolutionChain = value;
+    }
+    set evolutions(value: number[]) {
+        this._evolutions = value;
     }
 }

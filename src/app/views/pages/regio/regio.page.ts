@@ -1,15 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { Region } from 'src/app/models/region';
+import { PokemonService } from 'src/app/services/pokemon.service';
 
 @Component({
   selector: 'app-regio',
   templateUrl: './regio.page.html',
   styleUrls: ['./regio.page.scss'],
 })
-export class RegioPage implements OnInit {
+export class RegioPage /*implements OnInit*/ {
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private pokemonService: PokemonService) { 
+    if(!this.allPokemonsCreated){
+      this.pokemonService.retrieveAllPokemon();
+    }
   }
 
+  //ngOnInit() {}
+
+  retrieveAllRegion() { this.pokemonService.retriveAllRegion(); }
+  get allRegion(): Region[] { return this.pokemonService.allRegion}
+  get allPokemonsCreated():boolean {return this.pokemonService._allPokemonsCreated;}
 }
