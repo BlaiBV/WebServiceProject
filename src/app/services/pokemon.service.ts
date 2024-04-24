@@ -279,6 +279,12 @@ export class PokemonService {
     );
 
   }
+
+  filterPokemons(event: any){
+    const query = event.target.value.toLowerCase();
+    this._allPokemon = this._allPokemon.filter((p) => p.name.toLowerCase().includes(query));
+  }
+
   //get pokemonremaster(): Atributs | null { return this._pokemonRemaster; }
   get pokemon(): Pokemon | null { return this._pokemon; }
   get allPokemon(): Atributs[] { return this._allPokemon; }

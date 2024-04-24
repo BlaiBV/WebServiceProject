@@ -39,6 +39,14 @@ export class PokedexPage implements OnInit {
       this.pokemonService.retrieveAllPokemon();
     }
   }
+
+  handleInput(event: any) {
+    this.pokemonService.filterPokemons(event);
+  }
+
+  restart(){
+    
+  }
   get allPokemonsCreated():boolean {return this.pokemonService._allPokemonsCreated;}
   get allPokemon(): Atributs[] { return this.pokemonService.allPokemon}
 }

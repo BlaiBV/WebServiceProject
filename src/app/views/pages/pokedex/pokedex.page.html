@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-<ion-searchbar [(ngModel)]="_search" (ionFocus)="search()"></ion-searchbar>
+<ion-searchbar [(ngModel)]="_search" (ionFocus)="search()" (ionInput)="handleInput($event)"></ion-searchbar>
   <ion-card *ngFor = "let pokemon of allPokemon;" [routerLink]="['/poke-view', pokemon.id]" class="no-padding">
     <ion-card-header>
       <ion-grid>
