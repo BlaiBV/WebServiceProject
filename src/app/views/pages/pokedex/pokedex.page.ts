@@ -23,11 +23,6 @@ export class PokedexPage implements OnInit {
 
   ngOnInit() {
     //this.generateItems();
-    for (let index = 0; index < 5; index++) {
-      this.array.push(this.allPokemon[index]);
-      this.cont++;
-    }
-    console.log(this.array);
     
   }
 
@@ -63,6 +58,11 @@ export class PokedexPage implements OnInit {
       (ev as InfiniteScrollCustomEvent).target.complete();
     }, 500);
   }*/
+
+  tipusColor(tipus: any): any {
+    const color = tipus.type.name;
+    return {'background': 'var(--ion-color-' + color + ')', 'color': 'black'};
+  }
 
   get allPokemon(): Atributs[] { return this.pokemonservice.allPokemon}
 }

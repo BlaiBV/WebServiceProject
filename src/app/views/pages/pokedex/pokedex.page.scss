@@ -2,5 +2,9 @@ ion-fab{
     margin-bottom: 60px;
 }
 ion-img{
-    max-width: 50px;
+    background: var(--ion-color-light-tint);
+}
+.type {
+    margin-right: 7px;
+    border-radius: 10px;
 }

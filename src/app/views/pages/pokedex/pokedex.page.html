@@ -11,15 +11,22 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
 <ion-searchbar [(ngModel)]="_search"></ion-searchbar>
-  <ion-card class="ion-padding" *ngFor = "let pokemon of allPokemon;" [routerLink]="['/poke-view', pokemon.id]">
+  <ion-card *ngFor = "let pokemon of allPokemon;" [routerLink]="['/poke-view', pokemon.id]" class="no-padding">
     <ion-card-header>
       <ion-grid>
         <ion-row class="ion-align-items-center">
           <ion-col size="auto">
-              <ion-img [src]="pokemon.sprites.front_default"></ion-img>
+              <ion-img [src]="pokemon.sprites.other.home.front_default"></ion-img>
           </ion-col>
-          <ion-col >
+          <ion-col>
+            <ion-card-subtitle>N.º {{pokemon.id}}</ion-card-subtitle>
             <ion-card-title class="ion-text-uppercase">{{pokemon.name}}</ion-card-title>
+            <ion-text *ngFor="let tipus of pokemon.types"></ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-start">
+          <ion-col size="3" *ngFor="let tipus of pokemon.types" class="type ion-text-capitalize ion-text-center ion-padding-horizontal" [ngStyle]="tipusColor(tipus)">
+            {{tipus.type.name}}
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -29,7 +36,7 @@
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
-  <!--TODO: La icona la hem de fer amb android-->
+  <!--TODO: Buscar la icona al font-->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" [routerLink]="['/filtre']" [routerLinkActive]="['activatedLink']" >
     <ion-fab-button>
       <ion-icon name="chevron-up-circle"></ion-icon>
