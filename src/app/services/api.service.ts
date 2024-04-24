@@ -8,8 +8,10 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  public num: number = 0;
+  public num: number = -100;
   public url_all: string = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1302';
+  //url parametritzada amb el numero, cada cop que es cridi al observable
+  public url_limit: string = 'https://pokeapi.co/api/v2/pokemon/?offset='+this.num+'&limit=100';
   public url_types: string = 'https://pokeapi.co/api/v2/type';
   private url_region: string = 'https://pokeapi.co/api/v2/region';
   public url_pokemon: string = 'https://pokeapi.co/api/v2/pokemon/';
@@ -18,10 +20,14 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   get allPokemon(): Observable<any[]> {
-    //Arreglar URL
-    //Modificar offset
-    this.num
     return this.http.get<any[]>(this.url_all);
+  }
+
+  get allPokemonLimit(): Observable<any[]> {
+    this.num = this.num + 100;
+    this.url_limit = 'https://pokeapi.co/api/v2/pokemon/?offset='+this.num+'&limit=100';
+    console.log(this.url_limit);
+    return this.http.get<any[]>(this.url_limit);
   }
 
   get allTypes(): Observable<any[]> {

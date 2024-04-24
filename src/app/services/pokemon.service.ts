@@ -16,6 +16,7 @@ import { RegionLocation } from '../models/location';
 export class PokemonService {
 
   private _pokemon: Pokemon | null = null;
+  //private _pokemonRemaster: Atributs | null = null;
   private _allPokemon: Atributs[] = []; // Array de pokemons amb informació abreujada
   private _allTypes: Type[] = [];
   private _allRegion: Region[] = [];
@@ -25,65 +26,105 @@ export class PokemonService {
   private _areaPokemons: Atributs[] = [];
   private _error: boolean = false;
   public loading: any;
-  
-  constructor(private _apiServcie: ApiService, private loadingCtrl: LoadingController, private http: HttpClient) {
+  public _allPokemonsCreated: boolean = false;
+
+  constructor(private _apiService: ApiService, private loadingCtrl: LoadingController, private http: HttpClient) {
     this.retriveAllTypes();
     this.retriveAllRegion();
-    this.retrieveAllPokemon();
-   }
+    //this.retrieveAllPokemon();
+    this.retrievePokemonsLimit();
+  }
 
   async showLoading() {
     this.loading = await this.loadingCtrl.create({
       message: 'Estem buscant els pokèmons :)'
     });
+    console.log(this.loading);
     this.loading.present();
   }
 
-  retrieveAllPokemon () {
-    //this.showLoading();
-    this._apiServcie.allPokemon.subscribe(
-      (response: any) => {
+  async retrieveAllPokemon() {
+    this._allPokemon = [];
+    this._allPokemonsCreated = true;
+    await this.showLoading();
+    this._apiService.allPokemon.subscribe({
+      next: async (response: any) => {
+        await this.showLoading();
         for (let index: number = 0; index < response.results.length; index++) {
           this.http.get<any[]>(response.results[index].url).subscribe({
             next: (value: any) => {
               this._allPokemon.push(value);
             },
-            error: () =>{
+            error: () => {
               console.log("Error");
             },
-            complete: () => {}
+            complete: () => { 
+              
+              this.loading.dismiss();
+            }
           });
         }
-        //this.loading.dismiss();
-      }, (error) => {}
-    );
+        
+      },
+      error: () => { },
+      complete: () => {
+        this.loading.dismiss();
+       }
+    });
   }
 
-  retriveAllTypes () {
-    this._apiServcie.allTypes.subscribe(
+  retrievePokemonsLimit(){
+    this._apiService.allPokemonLimit.subscribe({
+      next: (response: any) => {
+        for (let index: number = 0; index < response.results.length; index++) {
+          this.http.get<any[]>(response.results[index].url).subscribe({
+            next: (value: any) => {
+              this._allPokemon.push(value);
+            },
+            error: () => {
+              console.log("Error");
+            },
+            complete: () => { }
+          });
+        }
+      },
+      error: () => {},
+      complete: () => {}
+    });
+  }
+
+  retriveAllTypes() {
+    this._apiService.allTypes.subscribe(
       (response: any) => {
         for (let index = 0; index < response.count; index++) {
           let value: any = response.results[index];
-          this._allTypes.push({name: value.name, url: value.url});
+          this._allTypes.push({ name: value.name, url: value.url });
         }
       }
     );
   }
 
-  retriveAllRegion () {
-    this._apiServcie.allRegion.subscribe(
+  retriveAllRegion() {
+    this._apiService.allRegion.subscribe(
       (response: any) => {
         for (let index = 0; index < response.count; index++) {
           let value: any = response.results[index];
-          this._allRegion.push({name: value.name, url: value.url});
+          this._allRegion.push({ name: value.name, url: value.url });
         }
       }
     );
   }
+  /*retrievePokemonRemaster(id:number){
+    let poke = this._allPokemon.filter((p) => {
+      p.id == id
+      return p.id;
+    });
+    this._pokemonRemaster = poke[0];
+  }*/
 
-  retrievePokemon (id: number) {
-    
-    this._apiServcie.getPokemon(id).subscribe(
+  retrievePokemon(id: number) {
+
+    this._apiService.getPokemon(id).subscribe(
       (response: any) => {
         this._pokemon = new Pokemon();
         this._pokemon.id = response.id;
@@ -111,12 +152,12 @@ export class PokemonService {
       }
     );
 
-    this._apiServcie.getSpecie(id).subscribe(
+    this._apiService.getSpecie(id).subscribe(
       (response: any) => {
         if (this._pokemon != null) {
           this._pokemon.evolutionChain = response.evolution_chain.url;
 
-          this._apiServcie.getEvolutions(this._pokemon.evolutionChain).subscribe(
+          this._apiService.getEvolutions(this._pokemon.evolutionChain).subscribe(
             (response: any) => {
               if (this._pokemon != null) {
                 this._pokemon.evolutions = [];
@@ -172,7 +213,7 @@ export class PokemonService {
     this._typePokemons = type_pokemons;
   }
 
-  retrieveLocations (region: string) {
+  retrieveLocations(region: string) {
     this._regionLocations = [];
     let url: string = "";
 
@@ -182,7 +223,7 @@ export class PokemonService {
       }
     }
 
-    this._apiServcie.getLocations(url).subscribe(
+    this._apiService.getLocations(url).subscribe(
       (response: any) => {
         for (let j: number = 0; j < response.locations.length; j++) {
           let value: RegionLocation = response.locations[j];
@@ -192,7 +233,7 @@ export class PokemonService {
     );
   }
 
-  retrieveAreas (location: string) {
+  retrieveAreas(location: string) {
     this._locationAreas = [];
     let url: string = "";
 
@@ -202,7 +243,7 @@ export class PokemonService {
       }
     }
 
-    this._apiServcie.getAreas(url).subscribe(
+    this._apiService.getAreas(url).subscribe(
       (response: any) => {
         for (let j: number = 0; j < response.areas.length; j++) {
           let value: Area = response.areas[j];
@@ -213,9 +254,9 @@ export class PokemonService {
   }
 
 
-  retrieveAreaPokemons (area: string, location: string) {
+  retrieveAreaPokemons(area: string, location: string) {
     this._areaPokemons = [];
-    
+
     let url: string = "";
 
     for (let i: number = 0; i < this._locationAreas.length; i++) {
@@ -224,7 +265,7 @@ export class PokemonService {
       }
     }
 
-    this._apiServcie.getArea(url).subscribe(
+    this._apiService.getArea(url).subscribe(
       (response: any) => {
 
         let id_array: number[] = [];
@@ -238,14 +279,15 @@ export class PokemonService {
     );
 
   }
-
+  //get pokemonremaster(): Atributs | null { return this._pokemonRemaster; }
   get pokemon(): Pokemon | null { return this._pokemon; }
-  get allPokemon(): Atributs[] {return this._allPokemon; }
-  get allTypes(): Type[] {return this._allTypes; }
-  get allRegion(): Region[] {return this._allRegion; }
-  get typePokemons(): Atributs[] {return this._typePokemons; }
-  get regionLocations(): RegionLocation[] {return this._regionLocations; }
-  get locationAreas(): Area[] {return this._locationAreas; }
-  get areaPokemons(): Atributs[] {return this._areaPokemons; }
+  get allPokemon(): Atributs[] { return this._allPokemon; }
+  get allTypes(): Type[] { return this._allTypes; }
+  get allRegion(): Region[] { return this._allRegion; }
+  get typePokemons(): Atributs[] { return this._typePokemons; }
+  get regionLocations(): RegionLocation[] { return this._regionLocations; }
+  get locationAreas(): Area[] { return this._locationAreas; }
+  get areaPokemons(): Atributs[] { return this._areaPokemons; }
   get hasError(): boolean { return this._error; }
+  get allPokemonsCreated():boolean {return this._allPokemonsCreated;}
 }

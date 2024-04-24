@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Atributs } from 'src/app/models/atributs';
 import { Pokemon } from 'src/app/models/pokemon';
 import { PokemonService } from 'src/app/services/pokemon.service';
 
@@ -13,7 +14,7 @@ export class PokeViewPage {
   public previous_id: number = 0;
   public next_id: number = 0;
 
-  constructor(private pokemonservice: PokemonService, private route: ActivatedRoute) {
+  constructor(private pokemonservice: PokemonService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(params => {
       let id: string = params['id'];
       this.pokemon_id = parseInt(id);
@@ -38,6 +39,9 @@ export class PokeViewPage {
 
       this.retrievePokemon();
     });
+  }
+  back(){
+    this.router.navigate(['/pokedex']);
   }
 
   retrievePokemon() { this.pokemonservice.retrievePokemon(this.pokemon_id); }

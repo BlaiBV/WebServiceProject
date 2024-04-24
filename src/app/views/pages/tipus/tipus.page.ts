@@ -9,11 +9,15 @@ import { PokemonService } from 'src/app/services/pokemon.service';
 })
 export class TipusPage /*implements OnInit*/ {
 
-  constructor(private pokemonservice: PokemonService) { }
+  constructor(private pokemonService: PokemonService) { 
+    if(!this.allPokemonsCreated){
+      this.pokemonService.retrieveAllPokemon();
+    }
+  }
 
   //ngOnInit() {}
 
-  retrievePokemon() { this.pokemonservice.retriveAllTypes(); }
-  get allTypes(): Type[] { return this.pokemonservice.allTypes}
-
+  retrievePokemon() { this.pokemonService.retriveAllTypes(); }
+  get allTypes(): Type[] { return this.pokemonService.allTypes }
+  get allPokemonsCreated():boolean {return this.pokemonService._allPokemonsCreated;}
 }

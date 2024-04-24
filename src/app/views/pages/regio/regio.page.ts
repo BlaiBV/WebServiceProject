@@ -9,10 +9,15 @@ import { PokemonService } from 'src/app/services/pokemon.service';
 })
 export class RegioPage /*implements OnInit*/ {
 
-  constructor(private pokemonservice: PokemonService) { }
+  constructor(private pokemonService: PokemonService) { 
+    if(!this.allPokemonsCreated){
+      this.pokemonService.retrieveAllPokemon();
+    }
+  }
 
   //ngOnInit() {}
 
-  retrieveAllRegion() { this.pokemonservice.retriveAllRegion(); }
-  get allRegion(): Region[] { return this.pokemonservice.allRegion}
+  retrieveAllRegion() { this.pokemonService.retriveAllRegion(); }
+  get allRegion(): Region[] { return this.pokemonService.allRegion}
+  get allPokemonsCreated():boolean {return this.pokemonService._allPokemonsCreated;}
 }
