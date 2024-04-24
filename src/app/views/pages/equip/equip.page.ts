@@ -6,11 +6,11 @@ import { FilesService } from 'src/app/services/files.service';
   templateUrl: './equip.page.html',
   styleUrls: ['./equip.page.scss'],
 })
-export class EquipPage implements OnInit {
+export class EquipPage /*implements OnInit*/ {
 
   constructor(private _filesService: FilesService) {}
 
-  ngOnInit() {}
+  //ngOnInit() {}
 
   crearFitxer(){
     this._filesService.fileAppend();

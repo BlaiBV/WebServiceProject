@@ -10,33 +10,119 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  
+
+  <ion-grid class="ion-no-padding">
+    <ion-row class="ion-no-padding">
+
+      <ion-col class="ion-col" [routerLink]="['/poke-view', previous_id]">
+        <ion-icon size="large" name="arrow-back-circle-outline"></ion-icon>
+      </ion-col>
+
+      <ion-col class="ion-col ion-text-end" [routerLink]="['/poke-view', next_id]">
+        <ion-icon size="large" name="arrow-forward-circle-outline"></ion-icon>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
   <div *ngIf="pokemon">
+    
+    <ion-text class="ion-text-center ion-text-uppercase">
+      <h1 class="ion-no-margin">{{pokemon.name}}</h1>
+      <h2 class="ion-no-margin" color="ion-warning">#{{pokemon.id}}</h2>
+    </ion-text>
+
     <ion-img [src]="pokemon.imgURL"></ion-img>
-    <ion-list>
-      <ion-item>
-        <ion-label>El nom és: {{pokemon.name}}</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          El tipus és:
-          <span *ngFor = "let tipus of pokemon.types;">
-            {{tipus}},
-          </span>
-        </ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>L'alçada és: {{pokemon.height}}</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>El pes és: {{pokemon.weight}}</ion-label>
-      </ion-item>
-    </ion-list>
+
+    <div class="ion-margin-start">
+      <ion-text>
+        <h2>Tipus</h2>
+      </ion-text>
+      <ion-grid class="ion-margin-bottom">
+        <ion-col class="type {{tipus}} ion-margin-end ion-text-capitalize ion-text-center ion-padding-horizontal" *ngFor = "let tipus of pokemon.types;" [routerLink]="['/tipus', tipus]">
+          {{tipus}}
+        </ion-col>
+      </ion-grid>
+    </div>
+
+    <ion-accordion-group class="ion-margin-bottom">
+      <ion-accordion value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>Característiques de combat</ion-label>
+        </ion-item>
+        <div slot="content">
+          <ion-list>
+            <ion-item>
+              <ion-label>HP {{pokemon.hp}}</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>Atac {{pokemon.attack}}</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>Defensa {{pokemon.defense}}</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>Atac especial {{pokemon.specialAttack}}</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>Defensa especial {{pokemon.specialDefense}}</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>Velocitat {{pokemon.speed}}</ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="second">
+        <ion-item slot="header" color="light">
+          <ion-label>Característiques físiques</ion-label>
+        </ion-item>
+        <div slot="content">
+          <ion-list>
+            <ion-item>
+              <ion-label>Alçada {{pokemon.height}}</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>Pes {{pokemon.weight}}</ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="third">
+        <ion-item slot="header" color="light">
+          <ion-label>Habilitats</ion-label>
+        </ion-item>
+        <div slot="content">
+          <ion-list>
+            <ion-item *ngFor = "let ability of pokemon.abilities;">
+              <ion-label>{{ability}}</ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+
+    <div class="ion-margin-start ion-margin-end">
+      <ion-text>
+        <h2>Evolucions</h2>
+      </ion-text>
+      <ion-grid>
+        <ion-row *ngFor = "let item of pokemon.evolutions">
+          <ion-col class="ion-align-items-center">
+            <ion-img class="evolucions ion-align-self-center" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{item}}.png" [routerLink]="['/poke-view', item]"></ion-img>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div style="height: 100px;"></div>
+
   </div>
   
 
   <div class="m-3 p-3 text-bg-danger" *ngIf="hasError">
-    Error, no s'ha trobat la cançó
+    Error, no s'ha trobat el pokemon
   </div>
 
 </ion-content>

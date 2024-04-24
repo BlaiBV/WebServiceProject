@@ -4,15 +4,15 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Regions
+      Tipus
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
-  <ion-card class="ion-padding ion-text-center ion-text-uppercase" *ngFor="let region of allRegion;" [routerLink]="['/regio', region.name]">
+<ion-content [fullscreen]="true">
+  <ion-card class="ion-padding ion-text-center ion-text-uppercase {{type.name}}" *ngFor="let type of allTypes;" [routerLink]="['/tipus', type.name]">
     <ion-card-header>
-      <ion-card-title>{{region.name}}</ion-card-title>
+      <ion-card-title>{{type.name}}</ion-card-title>
     </ion-card-header>
   </ion-card>
 </ion-content>

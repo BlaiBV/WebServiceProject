@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <swiper-container [pagination] = true>
+  <swiper-container [pagination] = true [loop] = "true">
     <swiper-slide *ngFor="let foto of fotos"><img [src]="foto" alt="pokefoto"></swiper-slide>
   </swiper-container>
 

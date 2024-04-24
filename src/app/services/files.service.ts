@@ -8,7 +8,7 @@ export class FilesService {
 
   constructor() {}
 
-   async fileAppend() {
+  async fileAppend() {
     await Filesystem.appendFile({
       path: 'text1.txt',
       data: "Nova prova",
