@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  public num: number = 0;
+  public offset: number = 0;
   public url_all: string = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1302';
   public url_pokemon: string = 'https://pokeapi.co/api/v2/pokemon/';
 
@@ -16,7 +16,7 @@ export class ApiService {
   get allPokemon(): Observable<any[]> {
     //Arreglar URL
     //Modificar offset
-    this.num
+    this.offset
     return this.http.get<any[]>(this.url_all);
   }
 

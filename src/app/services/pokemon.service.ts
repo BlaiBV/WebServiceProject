@@ -21,14 +21,22 @@ export class PokemonService {
    }
 
   async showLoading() {
+    console.log("Estic dins del showLoading abans de començar");
+    
     this.loading = await this.loadingCtrl.create({
       message: 'Estem buscant els pokèmons :)'
     });
+    console.log("Estic dins de la creació");
     this.loading.present();
+    console.log("Després del present: ");
+    
+    console.log(this.loading);
+    
   }
 
-  retrieveAllPokemon () {
-    //this.showLoading();
+  async retrieveAllPokemon () {
+   await this.showLoading();
+
     this._apiServcie.allPokemon.subscribe(
       (response: any) => {
         for (let index = 0; index < response.results.length; index++) {
@@ -42,10 +50,17 @@ export class PokemonService {
             complete: () => {}
           });
         }
-        //this.loading.dismiss();
+        console.log("Estic abans");
+        if(this.loading){
+          console.log("Estic dins");
+          this.loading.dismiss();
+        }
+        console.log("Estic després");
+        
         console.log(this._allPokemon);
       }, (error) => {}
     );
+    console.log(this.loading);
   }
 
   retrievePokemon (id: number) {
