@@ -17,6 +17,11 @@ const routes: Routes = [
   {path: '',redirectTo: 'home',pathMatch: 'full'},
   {path: '**',loadChildren: () => import('./views/pages/page-not-found/page-not-found.module').then( m => m.PageNotFoundPageModule)},
   {path: 'barcode-scanner',loadChildren: () => import('./views/pages/barcode-scanner/barcode-scanner.module').then( m => m.BarcodeScannerPageModule)},
+  {
+    path: 'confirm-pokemon',
+    loadChildren: () => import('./views/pages/confirm-pokemon/confirm-pokemon.module').then( m => m.ConfirmPokemonPageModule)
+  },
+
 
 ];
 

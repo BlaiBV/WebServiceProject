@@ -20,6 +20,11 @@ export class TipusPokemonPage /*implements OnInit*/ {
     });
   }
 
+  tipusColor(tipus: any): any {
+    const color = tipus.type.name;
+    return {'background': 'var(--ion-color-' + color + ')', 'color': 'black'};
+  }
+
   //ngOnInit() {}
 
   retrieveTypePokemons() { this.pokemonservice.retrieveTypePokemons(this.type_name); }

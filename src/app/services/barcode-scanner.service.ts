@@ -8,10 +8,12 @@ export class BarcodeScannerService {
 //Tinc suport per utilitzar la camara o no
   private _supported: boolean;
   private _barcodes: Barcode[];
+  private _resultat: Barcode[];
   
   constructor() {
     this._supported = false;
     this._barcodes = [];
+    this._resultat = [];
     this.isSupported();
   }
 
@@ -42,6 +44,7 @@ export class BarcodeScannerService {
       //Si treiem el options ens agafa tot per defecte
       const result: ScanResult = await BarcodeScanner.scan(options);
       this._barcodes = result.barcodes;
+      this._resultat = result.barcodes;
 
       return true;
     }
@@ -55,5 +58,14 @@ export class BarcodeScannerService {
 
   get supported(): boolean {
     return this._supported;
+  }
+  
+  async isGoogleBarcodeScannerModuleAvailable(): Promise<boolean> {
+    const { available } = await BarcodeScanner.isGoogleBarcodeScannerModuleAvailable();
+    return available;
+  }
+
+  get resultat(): Barcode[] {
+    return this._resultat;
   }
 }

@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>confirm-pokemon</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <div *ngIf="pokemon">
+    <ion-img [src]="pokemon.imgURL"></ion-img>
+
+    <div class="ion-margin-start">
+      <ion-text>
+        <h2>Tipus</h2>
+      </ion-text>
+      <ion-grid class="ion-margin-bottom">
+        <ion-col class="type {{tipus}} ion-margin-end ion-text-capitalize ion-text-center ion-padding-horizontal" *ngFor = "let tipus of pokemon.types;" [routerLink]="['/tipus', tipus]">
+          {{tipus}}
+        </ion-col>
+      </ion-grid>
+    </div>
+  </div>
+
+</ion-content>

@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card class="ion-padding ion-text-center ion-text-uppercase {{type.name}}" *ngFor="let type of allTypes;" [routerLink]="['/tipus', type.name]">
+  <ion-card class="ion-padding ion-text-center ion-text-uppercase type" *ngFor="let type of allTypes;" [routerLink]="['/tipus', type.name]" [ngStyle]="tipusColor(type.name)">
     <ion-card-header>
       <ion-card-title>{{type.name}}</ion-card-title>
     </ion-card-header>

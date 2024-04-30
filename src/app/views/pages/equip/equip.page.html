@@ -10,5 +10,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="scan()" [disabled]="!isSupported">
+      <ion-icon name="scan"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
   <ion-button (click)="crearFitxer()">Si apretes es crearà el fitxer en els teus documents del movil</ion-button>
+
+
 </ion-content>

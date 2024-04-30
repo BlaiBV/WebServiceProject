@@ -15,6 +15,12 @@ export class TipusPage /*implements OnInit*/ {
     }
   }
 
+  tipusColor(tipus: any): any {
+    console.log(tipus);
+    const color = tipus;
+    return {'background': 'var(--ion-color-' + color + ')', 'color': 'black'};
+  }
+
   //ngOnInit() {}
 
   retrievePokemon() { this.pokemonService.retriveAllTypes(); }

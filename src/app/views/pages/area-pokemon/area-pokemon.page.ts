@@ -26,6 +26,11 @@ export class AreaPokemonPage /*implements OnInit*/ {
     });
   }
 
+  tipusColor(tipus: any): any {
+    const color = tipus.type.name;
+    return {'background': 'var(--ion-color-' + color + ')', 'color': 'black'};
+  }
+
   //ngOnInit() {}
 
   retrieveAreaPokemons() { this.pokemonservice.retrieveAreaPokemons(this.area_name, this.location_name); }
