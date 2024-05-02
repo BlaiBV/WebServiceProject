@@ -50,6 +50,9 @@ export class ApiService {
     return this.http.get<any>(url);
   }
 
+  getPokemonByUrl(url:string){
+    return this.http.get<any[]>(url);
+  }
 
 
 

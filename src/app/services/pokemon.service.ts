@@ -29,6 +29,7 @@ export class PokemonService {
   public loading: any;
   public _allPokemonsCreated: boolean = false;
   public _filtratge: number = 0;
+  public _pokemonTeam: Atributs[] =[];
 
   constructor(private _apiService: ApiService, private loadingCtrl: LoadingController, private http: HttpClient) {
     this.retriveAllTypes();
@@ -307,6 +308,18 @@ export class PokemonService {
     }
   }
 
+  retrievePokemonByUrl(pokemons: any[]){ 
+    for (let index = 0; index < pokemons.length; index++) {
+      this._apiService.getPokemonByUrl(pokemons[index]).subscribe({
+        next: (response: any) => {
+          this._pokemonTeam.push(response);
+        },
+        error: () => {},
+        complete: () => {}
+      });
+    }
+  }
+
   //get pokemonremaster(): Atributs | null { return this._pokemonRemaster; }
   get pokemon(): Pokemon | null { return this._pokemon; }
   get allPokemon(): Atributs[] { return this._allPokemon; }
@@ -318,4 +331,6 @@ export class PokemonService {
   get areaPokemons(): Atributs[] { return this._areaPokemons; }
   get hasError(): boolean { return this._error; }
   get allPokemonsCreated():boolean {return this._allPokemonsCreated;}
+  get pokemonTeam(): Atributs[]{return this._pokemonTeam}
+
 }

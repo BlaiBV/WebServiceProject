@@ -75,176 +75,29 @@ export interface Atributs {
         url: string
     },
     sprites: {
-        /*back_default: string,
-        back_female: null,
-        back_shiny: string,
-        back_shiny_female: null,*/
         front_default: string,
-       /*front_female: null,
-        front_shiny: string,
-        front_shiny_female: null,*/
         other: {
-            /*dream_world: {
-                front_default: string,
-                front_female: null
-            },*/
             home: {
                 front_default: string,
                 front_female: null,
                 front_shiny: string,
                 front_shiny_female: null
             },
-            /*showdown: {
-                back_default: string,
-                back_female: null,
-                back_shiny: string,
-                back_shiny_female: null,
+            official_artwork: {
                 front_default: string,
-                front_female: null,
+                front_shiny: string
+            },
+            showdown: {
+                back_default: string,
+                back_female: string,
+                back_shiny: string,
+                back_shiny_female: string,
+                front_default: string,
+                front_female: string,
                 front_shiny: string,
-                front_shiny_female: null
-            }*/
+                front_shiny_female: string
+              }
         },
-        /*versions: {
-            generation_i: {
-                red_blue: {
-                    back_default: string,
-                    back_gray: string,
-                    front_default: string,
-                    front_gray: string
-                },
-                yellow: {
-                    back_default: string,
-                    back_gray: string,
-                    front_default: string,
-                    front_gray: string
-                }
-            },
-            generation_ii: {
-                crystal: {
-                    back_default: string,
-                    back_shiny: string,
-                    front_default: string,
-                    front_shiny: string
-                },
-                gold: {
-                    back_default: string,
-                    back_shiny: string,
-                    front_default: string,
-                    front_shiny: string
-                },
-                silver: {
-                    back_default: string,
-                    back_shiny: string,
-                    front_default: string,
-                    front_shiny: string
-                }
-            },
-            generation_iii: {
-                emerald: {
-                    front_default: string,
-                    front_shiny: string
-                },
-                firered_leafgreen: {
-                    back_default: string,
-                    back_shiny: string,
-                    front_default: string,
-                    front_shiny: string
-                },
-                ruby_sapphire: {
-                    back_default: string,
-                    back_shiny: string,
-                    front_default: string,
-                    front_shiny: string
-                }
-            },
-            generation_iv: {
-                diamond_pearl: {
-                    back_default: string,
-                    back_female: string,
-                    back_shiny: string,
-                    back_shiny_female: string,
-                    front_default: string,
-                    front_female: string,
-                    front_shiny: string,
-                    front_shiny_female: string
-                },
-                heartgold_soulsilver: {
-                    back_default: string,
-                    back_female: string,
-                    back_shiny: string,
-                    back_shiny_female: string,
-                    front_default: string,
-                    front_female: string,
-                    front_shiny: string,
-                    front_shiny_female: string
-                },
-                platinum: {
-                    back_default: string,
-                    back_female: string,
-                    back_shiny: string,
-                    back_shiny_female: string,
-                    front_default: string,
-                    front_female: string,
-                    front_shiny: string,
-                    front_shiny_female: string
-                }
-            },
-            generation_v: {
-                black_white: {
-                    animated: {
-                        back_default: string,
-                        back_female: string,
-                        back_shiny: string,
-                        back_shiny_female: string,
-                        front_default: string,
-                        front_female: string,
-                        front_shiny: string,
-                        front_shiny_female: string
-                    },
-                    back_default: string,
-                    back_female: string,
-                    back_shiny: string,
-                    back_shiny_female: string,
-                    front_default: string,
-                    front_female: string,
-                    front_shiny: string,
-                    front_shiny_female: string
-                }
-            },
-            generation_vi: {
-                omegaruby_alphasapphire: {
-                    front_default: string,
-                    front_female: string,
-                    front_shiny: string,
-                    front_shiny_female: string
-                },
-                x_y: {
-                    front_default: string,
-                    front_female: string,
-                    front_shiny: string,
-                    front_shiny_female: string
-                }
-            },
-            generation_vii: {
-                icons: {
-                    front_default: string,
-                    front_female: string
-                },
-                ultra_sun_ultra_moon: {
-                    front_default: string,
-                    front_female: string,
-                    front_shiny: string,
-                    front_shiny_female: string
-                }
-            },
-            generation_viii: {
-                icons: {
-                    front_default: string,
-                    front_female: string
-                }
-            }
-        }*/
     },
     cries: {
         latest: string,

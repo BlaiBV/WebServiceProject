@@ -16,7 +16,7 @@ export class EquipPage /*implements OnInit*/ {
   public accepted: boolean | undefined;
   public pokemon: any;
 
-  constructor(private navCtrl: NavController, private _filesService: FilesService, private _barcodeScanner: BarcodeScannerService) {
+  constructor(private navCtrl: NavController, private _filesService: FilesService, private _barcodeScanner: BarcodeScannerService, private _pokemonService: PokemonService) {
     this.isGoogleBarcodeScannerModuleAvailable();
 
     const navigationState = window.history.state;
@@ -56,5 +56,12 @@ export class EquipPage /*implements OnInit*/ {
       BarcodeScanner.installGoogleBarcodeScannerModule();
     }
   }
+
+  tipusColor(tipus: any): any {
+    const color = tipus.type.name;
+    return {'background': 'var(--ion-color-' + color + ')', 'color': 'black', 'font-size': 'x-small'};
+  }
+
+  get pokemonTeam(){ return this._pokemonService.pokemonTeam }
 
 }
