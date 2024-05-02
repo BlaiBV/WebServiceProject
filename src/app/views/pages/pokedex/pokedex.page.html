@@ -7,10 +7,13 @@
       PokeDex
     </ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="_search" (ionFocus)="search()" (ionInput)="handleInput($event)"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-<ion-searchbar [(ngModel)]="_search" (ionFocus)="search()" (ionInput)="handleInput($event)"></ion-searchbar>
+  <ion-list>
   <ion-card *ngFor = "let pokemon of allPokemon;" [routerLink]="['/poke-view', pokemon.id]" class="no-padding">
     <ion-card-header>
       <ion-grid>
@@ -32,6 +35,7 @@
       </ion-grid>
     </ion-card-header>
   </ion-card>
+</ion-list>
  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
