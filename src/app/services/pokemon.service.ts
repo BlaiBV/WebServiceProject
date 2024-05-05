@@ -30,6 +30,7 @@ export class PokemonService {
   public _allPokemonsCreated: boolean = false;
   public _filtratge: number = 0;
   public _pokemonTeam: Atributs[] =[];
+  public sixPokemons: boolean = false;
 
   constructor(private _apiService: ApiService, private loadingCtrl: LoadingController, private http: HttpClient) {
     this.retriveAllTypes();
@@ -309,15 +310,19 @@ export class PokemonService {
   }
 
   retrievePokemonByUrl(pokemons: any[]){ 
-    this._pokemonTeam = [];
-    for (let index = 0; index < pokemons.length; index++) {
-      this._apiService.getPokemonByUrl(pokemons[index]).subscribe({
-        next: (response: any) => {
-          this._pokemonTeam.push(response);
-        },
-        error: () => {},
-        complete: () => {}
-      });
+    if(this._pokemonTeam.length !== 6){
+      this._pokemonTeam = [];
+      for (let index = 0; index < pokemons.length; index++) {
+        this._apiService.getPokemonByUrl(pokemons[index]).subscribe({
+          next: (response: any) => {
+            this._pokemonTeam.push(response);
+          },
+          error: () => {},
+          complete: () => {}
+        });
+      }
+    } else {
+      this.sixPokemons = true;
     }
   }
 
@@ -332,6 +337,6 @@ export class PokemonService {
   get areaPokemons(): Atributs[] { return this._areaPokemons; }
   get hasError(): boolean { return this._error; }
   get allPokemonsCreated():boolean {return this._allPokemonsCreated;}
-  get pokemonTeam(): Atributs[]{return this._pokemonTeam}
-
+  get pokemonTeam(): Atributs[]{return this._pokemonTeam; }
+  get isSixPokemons(): boolean { return this.sixPokemons; }
 }

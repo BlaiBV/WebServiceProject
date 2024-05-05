@@ -16,7 +16,6 @@ export class FilesService {
   public pokemonUrls: any = [];
   public dataString = JSON.stringify(this.pokemonUrls);
 
-
   async writeToFile(pokemonURL: string): Promise<boolean> {
     this.pokemonUrls.push(pokemonURL);
     let result: WriteFileResult = await Filesystem.writeFile({
