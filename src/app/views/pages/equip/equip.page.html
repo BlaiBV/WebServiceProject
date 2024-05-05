@@ -35,4 +35,37 @@
     </ion-item>
   </ion-list>
 
+
+  <div *ngIf="pokemon && visible">
+    <ion-text class="ion-text-center ion-text-uppercase">
+      <h1 class="ion-no-margin">{{pokemon.name}}</h1>
+      <h2 class="ion-no-margin" color="ion-warning">#{{pokemon.id}}</h2>
+    </ion-text>
+
+    <ion-img [src]="pokemon.imgURL"></ion-img>
+
+    <div class="ion-margin-start">
+      <ion-text>
+        <h2>Tipus</h2>
+      </ion-text>
+      <ion-grid class="ion-margin-bottom">
+        <ion-col class="type {{tipus}} ion-margin-end ion-text-capitalize ion-text-center ion-padding-horizontal" *ngFor = "let tipus of pokemon.types;" [routerLink]="['/tipus', tipus]">
+          {{tipus}}
+        </ion-col>
+      </ion-grid>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button (click) = "acceptarPokemon();">Acceptar</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button (click) = "denegarPokemon();">Denegar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+
 </ion-content>
