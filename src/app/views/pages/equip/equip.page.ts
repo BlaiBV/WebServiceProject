@@ -25,7 +25,7 @@ export class EquipPage /*implements OnInit*/ {
   //ngOnInit() {}
 
   crearFitxer(){
-    this._filesService.writeToFile();
+    //this._filesService.writeToFile();
     this._filesService.readFromFile();
   }
 
