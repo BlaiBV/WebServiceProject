@@ -14,18 +14,12 @@ import { NavController } from '@ionic/angular';
 export class EquipPage /*implements OnInit*/ {
   public barcode_url: string = "";
   public accepted: boolean | undefined;
-  public pokemon: any;
+  public scanned_pokemon: any;
+  public pokemon_equip: any[] = [];
+  public visible = false;
 
   constructor(private navCtrl: NavController, private _filesService: FilesService, private _barcodeScanner: BarcodeScannerService, private _pokemonService: PokemonService) {
     this.isGoogleBarcodeScannerModuleAvailable();
-
-    const navigationState = window.history.state;
-    if (navigationState) {
-      this.accepted = navigationState.accepted;
-      this.pokemon = navigationState.pokemon;
-
-      console.log("Accepted" + this.accepted);
-    }
   }
 
   //ngOnInit() {}
@@ -38,7 +32,7 @@ export class EquipPage /*implements OnInit*/ {
   async scan(): Promise<boolean> {
     let done: boolean = await this._barcodeScanner.scan();
     this.barcode_url = this._barcodeScanner.barcodes[0].rawValue;
-    this.navCtrl.navigateForward(`/confirm-pokemon/${encodeURIComponent(this.barcode_url)}`);
+    this.retrievePokemon();
     return done;
   }
 
@@ -62,6 +56,22 @@ export class EquipPage /*implements OnInit*/ {
     return {'background': 'var(--ion-color-' + color + ')', 'color': 'black', 'font-size': 'x-small'};
   }
 
+  acceptarPokemon() {
+    this.visible = false;
+    this.pokemon_equip.push(this.pokemon);
+  }
+
+  denegarPokemon() {
+    this.visible = false;
+  }
+
+  retrievePokemon() { 
+    this.visible = true;
+    this._pokemonService.retrievePokemon(parseInt(this.barcode_url.split("/")[6])); 
+  }
+  get pokemon(): Pokemon | null { 
+    return this._pokemonService.pokemon; 
+  }
   get pokemonTeam(){ return this._pokemonService.pokemonTeam }
 
 }
