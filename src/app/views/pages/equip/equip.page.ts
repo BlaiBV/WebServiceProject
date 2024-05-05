@@ -58,6 +58,7 @@ export class EquipPage /*implements OnInit*/ {
   acceptarPokemon() {
     this.visible = false;
     this._filesService.writeToFile(this.barcode_url);
+
   }
 
   denegarPokemon() {
