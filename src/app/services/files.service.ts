@@ -10,7 +10,6 @@ export class FilesService {
   private _odata: any;
   public _cridesApiPokemon: any[] = [];
   constructor(private pokemonService: PokemonService) {
-    //this.writeToFile();
     this.readFromFile();
   }
   
