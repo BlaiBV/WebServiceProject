@@ -309,6 +309,7 @@ export class PokemonService {
   }
 
   retrievePokemonByUrl(pokemons: any[]){ 
+    this._pokemonTeam = [];
     for (let index = 0; index < pokemons.length; index++) {
       this._apiService.getPokemonByUrl(pokemons[index]).subscribe({
         next: (response: any) => {

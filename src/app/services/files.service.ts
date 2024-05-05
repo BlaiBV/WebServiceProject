@@ -13,21 +13,25 @@ export class FilesService {
     this.readFromFile();
   }
   
-  public pokemonUrls = ["https://pokeapi.co/api/v2/pokemon/392/", "https://pokeapi.co/api/v2/pokemon/150/"];
+  public pokemonUrls: any = [];
   public dataString = JSON.stringify(this.pokemonUrls);
 
 
   async writeToFile(pokemonURL: string): Promise<boolean> {
+    this.pokemonUrls.push(pokemonURL);
     let result: WriteFileResult = await Filesystem.writeFile({
       //TODO: Ficar la variable que es passa per parametre dins de data
       path: 'pokemons.txt',
-      data: pokemonURL +",", //Aqui va la la url del pokemon seleccionat
+      data: JSON.stringify(this.pokemonUrls), //Aqui va la la url del pokemon seleccionat
       directory: Directory.Documents,
       encoding: Encoding.UTF8
       
     });
-    if(result.uri && result.uri != '') return true;
-    else {
+    if(result.uri && result.uri != '')
+      {
+        this.readFromFile();
+        return true;
+      }else {
         console.log("Error d'escriptura");
         return false;
     }
@@ -43,6 +47,8 @@ export class FilesService {
     
     if(contents.data) {
       this._odata = contents.data;
+      console.log(this._odata);
+      
       if(!(this._odata instanceof Blob)) this._odata = JSON.parse(this._odata);
       this.pokemonService.retrievePokemonByUrl(this._odata);
       return true;
