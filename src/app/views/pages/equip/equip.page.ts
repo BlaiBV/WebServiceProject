@@ -15,7 +15,6 @@ export class EquipPage /*implements OnInit*/ {
   public barcode_url: string = "";
   public accepted: boolean | undefined;
   public scanned_pokemon: any;
-  public pokemon_equip: any[] = [];
   public visible = false;
 
   constructor(private navCtrl: NavController, private _filesService: FilesService, private _barcodeScanner: BarcodeScannerService, private _pokemonService: PokemonService) {
@@ -58,7 +57,6 @@ export class EquipPage /*implements OnInit*/ {
 
   acceptarPokemon() {
     this.visible = false;
-    this.pokemon_equip.push(this.pokemon);
   }
 
   denegarPokemon() {

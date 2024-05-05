@@ -17,8 +17,7 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-button (click)="crearFitxer()">Si apretes es crearà el fitxer en els teus documents del movil</ion-button>
-  <ion-list>
+  <ion-list *ngIf="!visible">
     <ion-item *ngFor="let pokemon of pokemonTeam" class="item ion-text-capitalize" [routerLink]="['/poke-view', pokemon.id]" lines="none">
       <img [src]="pokemon.sprites.other.showdown.front_default">
       <ion-grid>
