@@ -10,7 +10,7 @@ export class FilesService {
   private _odata: any;
   public _cridesApiPokemon: any[] = [];
   constructor(private pokemonService: PokemonService) {
-    this.writeToFile();
+    //this.writeToFile();
     this.readFromFile();
   }
   
@@ -18,11 +18,11 @@ export class FilesService {
   public dataString = JSON.stringify(this.pokemonUrls);
 
 
-  async writeToFile(/*pokemonURL: string*/): Promise<boolean> {
+  async writeToFile(pokemonURL: string): Promise<boolean> {
     let result: WriteFileResult = await Filesystem.writeFile({
       //TODO: Ficar la variable que es passa per parametre dins de data
-      path: 'fitxerProva.txt',
-      data: this.dataString, //Aqui va la la url del pokemon seleccionat
+      path: 'pokemons.txt',
+      data: pokemonURL +",", //Aqui va la la url del pokemon seleccionat
       directory: Directory.Documents,
       encoding: Encoding.UTF8
       
@@ -36,7 +36,7 @@ export class FilesService {
   
   async readFromFile(): Promise<boolean> {
     let contents = await Filesystem.readFile({
-      path: 'fitxerProva.txt',
+      path: 'pokemons.txt',
       directory: Directory.Documents,
       encoding: Encoding.UTF8
     });
