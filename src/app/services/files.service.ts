@@ -16,6 +16,7 @@ export class FilesService {
   public pokemonUrls: any = [];
   public dataString = JSON.stringify(this.pokemonUrls);
 
+
   async writeToFile(pokemonURL: string): Promise<boolean> {
     this.pokemonUrls.push(pokemonURL);
     let result: WriteFileResult = await Filesystem.writeFile({
@@ -42,11 +43,10 @@ export class FilesService {
       encoding: Encoding.UTF8
     });
     console.log(contents.data);
-    
     if(contents.data) {
       this._odata = contents.data;
       console.log(this._odata);
-      
+      //this.pokemonUrls.push(this._odata);
       if(!(this._odata instanceof Blob)) this._odata = JSON.parse(this._odata);
       this.pokemonService.retrievePokemonByUrl(this._odata);
       return true;
