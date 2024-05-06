@@ -15,7 +15,7 @@ export class EquipPage /*implements OnInit*/ {
   public barcode_url: string = "";
   public accepted: boolean | undefined;
   public scanned_pokemon: any;
-  public visible = false;
+  public confirmar:boolean = false;
 
   constructor(private navCtrl: NavController, private _filesService: FilesService, private _barcodeScanner: BarcodeScannerService, private _pokemonService: PokemonService) {
     this.isGoogleBarcodeScannerModuleAvailable();
@@ -55,22 +55,23 @@ export class EquipPage /*implements OnInit*/ {
   }
 
   acceptarPokemon() {
-    this.visible = false;
+    this.confirmar = false;
     this._filesService.writeToFile(this.barcode_url);
 
   }
 
   denegarPokemon() {
-    this.visible = false;
+    this.confirmar = false;
   }
 
   retrievePokemon() { 
-    this.visible = true;
+    this.confirmar = true;
     this._pokemonService.retrievePokemon(parseInt(this.barcode_url.split("/")[6])); 
   }
   get pokemon(): Pokemon | null { 
     return this._pokemonService.pokemon; 
   }
   get pokemonTeam(){ return this._pokemonService.pokemonTeam }
+  get isSixPokemons() { return this._pokemonService.isSixPokemons }
 
 }
