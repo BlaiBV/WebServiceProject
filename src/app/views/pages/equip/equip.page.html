@@ -17,7 +17,13 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-list *ngIf="!visible">
+  <ion-card *nfIf = "isSixPokemons" color="danger">
+    <ion-text>
+      El teu equip ja està complet. El límit són 6! No pots afegir més pokemons.
+    </ion-text>
+  </ion-card>
+
+  <ion-list *ngIf="!confirmar">
     <ion-item *ngFor="let pokemon of pokemonTeam" class="item ion-text-capitalize" [routerLink]="['/poke-view', pokemon.id]" lines="none">
       <img [src]="pokemon.sprites.other.showdown.front_default">
       <ion-grid>
@@ -35,7 +41,7 @@
   </ion-list>
 
 
-  <div *ngIf="pokemon && visible">
+  <div *ngIf="pokemon && confirmar">
     <ion-text class="ion-text-center ion-text-uppercase">
       <h1 class="ion-no-margin">{{pokemon.name}}</h1>
       <h2 class="ion-no-margin" color="ion-warning">#{{pokemon.id}}</h2>
@@ -65,6 +71,5 @@
       </ion-row>
     </ion-grid>
   </div>
-
 
 </ion-content>
