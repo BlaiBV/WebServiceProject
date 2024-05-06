@@ -12,7 +12,6 @@ const routes: Routes = [
   {path: 'regio/:region', loadChildren: () => import('./views/pages/location/location.module').then( m => m.LocationPageModule)},
   {path: 'regio',loadChildren: () => import('./views/pages/regio/regio.module').then( m => m.RegioPageModule)},
   {path: 'equip',loadChildren: () => import('./views/pages/equip/equip.module').then( m => m.EquipPageModule)},
-  {path: 'filtre',loadChildren: () => import('./views/pages/filtre/filtre.module').then( m => m.FiltrePageModule)},
   {path: '',redirectTo: 'home',pathMatch: 'full'},
   {path: '**',loadChildren: () => import('./views/pages/page-not-found/page-not-found.module').then( m => m.PageNotFoundPageModule)},
 

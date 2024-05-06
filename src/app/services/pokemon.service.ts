@@ -310,7 +310,7 @@ export class PokemonService {
   }
 
   retrievePokemonByUrl(pokemons: any[]){ 
-    if(this._pokemonTeam.length !== 6){
+    //if(this._pokemonTeam.length < 6){
       this._pokemonTeam = [];
       for (let index = 0; index < pokemons.length; index++) {
         this._apiService.getPokemonByUrl(pokemons[index]).subscribe({
@@ -321,9 +321,9 @@ export class PokemonService {
           complete: () => {}
         });
       }
-    } else {
-      this.sixPokemons = true;
-    }
+    //} else {
+    //  this.sixPokemons = true;
+   // }
   }
 
   //get pokemonremaster(): Atributs | null { return this._pokemonRemaster; }

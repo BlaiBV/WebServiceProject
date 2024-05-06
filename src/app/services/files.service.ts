@@ -19,10 +19,9 @@ export class FilesService {
   async writeToFile(pokemonURL: string): Promise<boolean> {
     this.pokemonUrls.push(pokemonURL);
     let result: WriteFileResult = await Filesystem.writeFile({
-      //TODO: Ficar la variable que es passa per parametre dins de data
       path: 'pokemons.txt',
-      data: JSON.stringify(this.pokemonUrls), //Aqui va la la url del pokemon seleccionat
-      directory: Directory.Documents,
+      data: JSON.stringify(this.pokemonUrls), 
+      directory: Directory.Data,
       encoding: Encoding.UTF8
       
     });
@@ -39,7 +38,7 @@ export class FilesService {
   async readFromFile(): Promise<boolean> {
     let contents = await Filesystem.readFile({
       path: 'pokemons.txt',
-      directory: Directory.Documents,
+      directory: Directory.Data,
       encoding: Encoding.UTF8
     });
     console.log(contents.data);
