@@ -16,6 +16,7 @@ export class EquipPage /*implements OnInit*/ {
   public accepted: boolean | undefined;
   public scanned_pokemon: any;
   public confirmar:boolean = false;
+  public alerta: boolean = false;
 
   constructor(private navCtrl: NavController, private _filesService: FilesService, private _barcodeScanner: BarcodeScannerService, private _pokemonService: PokemonService) {
     this.isGoogleBarcodeScannerModuleAvailable();
@@ -28,10 +29,20 @@ export class EquipPage /*implements OnInit*/ {
   }
 
   async scan(): Promise<boolean> {
-    let done: boolean = await this._barcodeScanner.scan();
-    this.barcode_url = this._barcodeScanner.barcodes[0].rawValue;
-    this.retrievePokemon();
-    return done;
+    
+    if (this.pokemonTeam.length >= 6) {
+      let done: boolean = await this._barcodeScanner.scan();
+      this.alerta = true;
+      console.log("ALERTA " + this.alerta);
+      console.log("HAS SUPERAT EL NOMBRE DE POKEMONS QUE PODEN ESTAR EN UN EQUIP");
+      return done;
+    } else {
+      let done: boolean = await this._barcodeScanner.scan();
+      this.barcode_url = this._barcodeScanner.barcodes[0].rawValue;
+      this.retrievePokemon();
+      return done;
+    }
+
   }
 
   get isSupported(): boolean {
@@ -57,20 +68,28 @@ export class EquipPage /*implements OnInit*/ {
   acceptarPokemon() {
     this.confirmar = false;
     this._filesService.writeToFile(this.barcode_url);
-
+    
   }
 
   denegarPokemon() {
     this.confirmar = false;
   }
 
+  tancarAlerta() {
+    this.alerta = false;
+  }
+
+  eliminarPokemon(id: number) {
+    console.log("ELIMINAR " + "https://pokeapi.co/api/v2/pokemon/" + id + "/");
+    this._filesService.writeToFile("https://pokeapi.co/api/v2/pokemon/" + id + "/", true);
+  }
+
   retrievePokemon() { 
     this.confirmar = true;
     this._pokemonService.retrievePokemon(parseInt(this.barcode_url.split("/")[6])); 
   }
-  get pokemon(): Pokemon | null { 
-    return this._pokemonService.pokemon; 
-  }
+
+  get pokemon(): Pokemon | null { return this._pokemonService.pokemon; }
   get pokemonTeam(){ return this._pokemonService.pokemonTeam }
   get isSixPokemons() { return this._pokemonService.isSixPokemons }
 

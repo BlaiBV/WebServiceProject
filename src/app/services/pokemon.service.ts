@@ -321,9 +321,9 @@ export class PokemonService {
           complete: () => {}
         });
       }
-    //} else {
-    //  this.sixPokemons = true;
-   // }
+    /*} else {
+      this.sixPokemons = true;
+    }*/
   }
 
   //get pokemonremaster(): Atributs | null { return this._pokemonRemaster; }

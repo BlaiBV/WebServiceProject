@@ -17,16 +17,19 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-card *nfIf = "isSixPokemons" color="danger">
+  <ion-card *ngIf = "isSixPokemons || alerta" color="danger" class="ion-padding">
     <ion-text>
-      El teu equip ja està complet. El límit són 6! No pots afegir més pokemons.
+      <h6>
+        El teu equip ja està complet. El límit són 6! No pots afegir més pokemons.
+      </h6>
     </ion-text>
+    <ion-button (click) = "tancarAlerta();">TANCAR</ion-button>
   </ion-card>
 
   <ion-list *ngIf="!confirmar">
-    <ion-item *ngFor="let pokemon of pokemonTeam" class="item ion-text-capitalize" [routerLink]="['/poke-view', pokemon.id]" lines="none">
-      <img [src]="pokemon.sprites.other.showdown.front_default">
-      <ion-grid>
+    <ion-item *ngFor="let pokemon of pokemonTeam" class="item ion-text-capitalize" lines="none">
+      <img [src]="pokemon.sprites.other.showdown.front_default" [routerLink]="['/poke-view', pokemon.id]">
+      <ion-grid [routerLink]="['/poke-view', pokemon.id]">
         <ion-row class="ion-text-capitalize">
           {{pokemon.name}}
         </ion-row>
@@ -37,6 +40,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+      <ion-button color="danger" (click) = "eliminarPokemon(pokemon.id);">X</ion-button>
     </ion-item>
   </ion-list>
 
@@ -63,10 +67,10 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button (click) = "acceptarPokemon();">Acceptar</ion-button>
+          <ion-button (click) = "acceptarPokemon();" color="success">Acceptar</ion-button>
         </ion-col>
         <ion-col>
-          <ion-button (click) = "denegarPokemon();">Denegar</ion-button>
+          <ion-button (click) = "denegarPokemon();" color="danger">Denegar</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
