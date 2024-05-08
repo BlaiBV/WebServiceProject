@@ -35,13 +35,19 @@ export class PokeViewPage {
         this.next_id = this.pokemon_id + 1;
       }
 
-
-
       this.retrievePokemon();
+
     });
+    
   }
+
   back(){
     this.router.navigate(['/pokedex']);
+  }
+
+  tipusColor(tipus: any): any {
+    const color = tipus.type.name;
+    return {'background': 'var(--ion-color-' + color + ')', 'color': 'black', 'font-size': 'x-small'};
   }
 
   retrievePokemon() { this.pokemonservice.retrievePokemon(this.pokemon_id); }
