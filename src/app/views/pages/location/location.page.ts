@@ -8,21 +8,20 @@ import { PokemonService } from 'src/app/services/pokemon.service';
   templateUrl: './location.page.html',
   styleUrls: ['./location.page.scss'],
 })
-export class LocationPage /*implements OnInit*/ {
+export class LocationPage {
   public region_name: string = "";
   public base_url: string = "";
 
   constructor(private pokemonservice: PokemonService, private route: ActivatedRoute) {
+    // Obtenim els paràmetres de la ruta i es demana al service que retorni les localitzacions de la regió
+
     this.route.params.subscribe(params => {
       let region: string = params['region'];
       this.region_name = region;
       this.base_url = "/regio/" + region;
-      console.log(this.region_name);
       this.retrieveRegionLocations();
     });
   }
-
-  //ngOnInit() {}
 
   retrieveRegionLocations() { this.pokemonservice.retrieveLocations(this.region_name); }
   get regionLocations(): RegionLocation[] { return this.pokemonservice.regionLocations}

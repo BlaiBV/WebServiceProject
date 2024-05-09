@@ -9,10 +9,12 @@ import { PokemonService } from 'src/app/services/pokemon.service';
   templateUrl: './tipus-pokemon.page.html',
   styleUrls: ['./tipus-pokemon.page.scss'],
 })
-export class TipusPokemonPage /*implements OnInit*/ {
+export class TipusPokemonPage {
   public type_name: string = "";
 
   constructor(private pokemonservice: PokemonService, private route: ActivatedRoute) {
+    // Obtenim el paràmetre name de la ruta per saber el tipus concret al que s'accedeix
+
     this.route.params.subscribe(params => {
       let type: string = params['name'];
       this.type_name = type;
@@ -21,11 +23,12 @@ export class TipusPokemonPage /*implements OnInit*/ {
   }
 
   tipusColor(tipus: any): any {
+    // Funció dedicada a establir el color de fons d'un element atenent el tipus del pokemon
+
     const color = tipus.type.name;
     return {'background': 'var(--ion-color-' + color + ')', 'color': 'black'};
   }
 
-  //ngOnInit() {}
 
   retrieveTypePokemons() { this.pokemonservice.retrieveTypePokemons(this.type_name); }
   get typePokemons(): Atributs[] { return this.pokemonservice.typePokemons}

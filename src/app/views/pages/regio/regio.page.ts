@@ -7,15 +7,14 @@ import { PokemonService } from 'src/app/services/pokemon.service';
   templateUrl: './regio.page.html',
   styleUrls: ['./regio.page.scss'],
 })
-export class RegioPage /*implements OnInit*/ {
+export class RegioPage {
 
   constructor(private pokemonService: PokemonService) { 
+    // En cas que tots els pokemons no estiguin carregats, es carreguen
     if(!this.allPokemonsCreated){
       this.pokemonService.retrieveAllPokemon();
     }
   }
-
-  //ngOnInit() {}
 
   retrieveAllRegion() { this.pokemonService.retriveAllRegion(); }
   get allRegion(): Region[] { return this.pokemonService.allRegion}

@@ -7,21 +7,22 @@ import { PokemonService } from 'src/app/services/pokemon.service';
   templateUrl: './tipus.page.html',
   styleUrls: ['./tipus.page.scss'],
 })
-export class TipusPage /*implements OnInit*/ {
+export class TipusPage {
 
   constructor(private pokemonService: PokemonService) { 
+    // En cas que tots els pokemons no estiguin carregats, es carreguen
+
     if(!this.allPokemonsCreated){
       this.pokemonService.retrieveAllPokemon();
     }
   }
 
   tipusColor(tipus: any): any {
-    console.log(tipus);
+    // Funció dedicada a establir el color de fons d'un element atenent el tipus del pokemon
+    
     const color = tipus;
     return {'background': 'var(--ion-color-' + color + ')', 'color': 'black'};
   }
-
-  //ngOnInit() {}
 
   retrievePokemon() { this.pokemonService.retriveAllTypes(); }
   get allTypes(): Type[] { return this.pokemonService.allTypes }

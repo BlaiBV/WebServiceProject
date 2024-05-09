@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
+  
   public fotos: any[] = ['../../../../assets/img/1.jpg', '../../../../assets/img/2.jpg', '../../../../assets/img/3.png'];
   public pokeball: string = '../../../../assets/img/pokeball.png';
   constructor() { }
