@@ -15,32 +15,30 @@ import { RegionLocation } from '../models/location';
 })
 export class PokemonService {
 
-  private _pokemon: Pokemon | null = null;
-  //private _pokemonRemaster: Atributs | null = null;
+  private _pokemon: Pokemon | null = null; // Variable per emmagatzemar la infromació d'un pokemon
   private _allPokemon: Atributs[] = []; // Array de pokemons amb informació abreujada
-  private _unfilteredPokemons: Atributs[] = [];
-  private _allTypes: Type[] = [];
-  private _allRegion: Region[] = [];
-  private _typePokemons: Atributs[] = [];
-  private _regionLocations: RegionLocation[] = [];
-  private _locationAreas: Area[] = [];
-  private _areaPokemons: Atributs[] = [];
-  private _error: boolean = false;
+  private _unfilteredPokemons: Atributs[] = []; // Es guarden temporalment pokemons sense filtrar
+  private _allTypes: Type[] = []; // Es guarden tots els tipus
+  private _allRegion: Region[] = []; // Es guarden totes les regions
+  private _typePokemons: Atributs[] = []; // Es carreguen els pokemons del tipus seleccionat
+  private _regionLocations: RegionLocation[] = []; // Es carreguen les localitzacions de la regió seleccionada
+  private _locationAreas: Area[] = []; // Es carreguen les àrees de la localització seleccionada
+  private _areaPokemons: Atributs[] = []; // Es carreguen els pokemons de l'àrea seleccionada
+  private _error: boolean = false; // Es guarda si hi ha un error
   public loading: any;
   public _allPokemonsCreated: boolean = false;
   public _filtratge: number = 0;
-  public _pokemonTeam: Atributs[] =[];
+  public _pokemonTeam: Atributs[] =[]; // Es carreguen els pokemons de l'equip
   public sixPokemons: boolean = false;
 
   constructor(private _apiService: ApiService, private loadingCtrl: LoadingController, private http: HttpClient) {
-    this.retriveAllTypes();
-    this.retriveAllRegion();
-    //this.retrieveAllPokemon();
-    this.retrievePokemonsLimit();
+    this.retriveAllTypes(); // S'obtenen tots els tipus
+    this.retriveAllRegion(); // S'obtenen totes les sessions
+    this.retrievePokemonsLimit(); // Es carreguen els pokemons limitats, el primer paquet de 100
   }
 
   async showLoading() {
-    console.log("Estic dins del showLoading abans de començar");
+    // Funció dedicada a mostrar que s'estan carregant tots els pokemons
     
     this.loading = await this.loadingCtrl.create({
       message: 'Estem buscant els pokèmons :)'
@@ -53,6 +51,8 @@ export class PokemonService {
   }
 
   async retrieveAllPokemon() {
+    // Funció dedicada a retornar tots els pokemon
+
     this._allPokemon = [];
     this._allPokemonsCreated = true;
     await this.showLoading();
@@ -83,6 +83,7 @@ export class PokemonService {
   }
 
   retrievePokemonsLimit(){
+    // Funció dedicada a tornar tots els pokemons de forma limitada, per paquets de 100
     this._apiService.allPokemonLimit.subscribe({
       next: (response: any) => {
         for (let index: number = 0; index < response.results.length; index++) {
@@ -103,6 +104,7 @@ export class PokemonService {
   }
 
   retriveAllTypes() {
+    // Funció dedicada a retornar tots els tipus de pokemon
     this._apiService.allTypes.subscribe(
       (response: any) => {
         for (let index = 0; index < response.count; index++) {
@@ -115,6 +117,7 @@ export class PokemonService {
   }
 
   retriveAllRegion() {
+    // Funció dedicada a retornar totes les regions
     this._apiService.allRegion.subscribe(
       (response: any) => {
         for (let index = 0; index < response.count; index++) {
@@ -124,19 +127,14 @@ export class PokemonService {
       }
     );
   }
-  /*retrievePokemonRemaster(id:number){
-    let poke = this._allPokemon.filter((p) => {
-      p.id == id
-      return p.id;
-    });
-    this._pokemonRemaster = poke[0];
-  }*/
 
   retrievePokemon(id: number) {
+    // Funció dedicada a retorna un pokemon concret
 
+    // Es fa una primera crida a API amb el service per tal d'obtenir la major part d'atributs del pokemon
     this._apiService.getPokemon(id).subscribe(
       (response: any) => {
-        this._pokemon = new Pokemon();
+        this._pokemon = new Pokemon(); // S'instancia un nou pokemon
         this._pokemon.id = response.id;
         this._pokemon.name = response.name;
         this._pokemon.species = response.species.name;
@@ -162,17 +160,19 @@ export class PokemonService {
       }
     );
 
+    // Es fa una segona crida a API per obtenir la URL de l'evolució del pokemon (ja que no es construeix a partir de la id del pokemon, com les imatges)
     this._apiService.getSpecie(id).subscribe(
       (response: any) => {
         if (this._pokemon != null) {
           this._pokemon.evolutionChain = response.evolution_chain.url;
 
+          // Es fa una tercera crida a API per obtenir les evolucions concretes
           this._apiService.getEvolutions(this._pokemon.evolutionChain).subscribe(
             (response: any) => {
               if (this._pokemon != null) {
                 this._pokemon.evolutions = [];
 
-
+                // Es va accedint a cada evolució si n'hi ha una següent (es baixa a 3 nivells)
                 if (response.chain.evolves_to[0] != null) {
                   this._pokemon.evolutions.push(parseInt(response.chain.species.url.split("/")[6]));
 
@@ -193,10 +193,6 @@ export class PokemonService {
                   this._pokemon.evolutions.push(parseInt(response.chain.species.url.split("/")[6]));
                 }
 
-
-
-
-
                 console.log(this._pokemon.evolutions);
               }
             }
@@ -212,6 +208,7 @@ export class PokemonService {
   }
 
   retrieveTypePokemons(type_name: string) {
+    // Funció dedicada a retornar els pokemons d'un tipus específic
     let type_pokemons: Atributs[] = [];
     for (let index: number = 0; index < this._allPokemon.length; index++) {
       for (let j: number = 0; j < this._allPokemon[index].types.length; j++) {
@@ -224,6 +221,7 @@ export class PokemonService {
   }
 
   retrieveLocations(region: string) {
+    // Funció dedicada a retornar les localitzacions d'una regió específica
     this._regionLocations = [];
     let url: string = "";
 
@@ -244,6 +242,7 @@ export class PokemonService {
   }
 
   retrieveAreas(location: string) {
+    // Funció dedicada a retornar les àrees d'una localització específica
     this._locationAreas = [];
     let url: string = "";
 
@@ -265,6 +264,7 @@ export class PokemonService {
 
 
   retrieveAreaPokemons(area: string, location: string) {
+    // Funció dedicada a retornar els pokemons d'una àrea específica
     this._areaPokemons = [];
 
     let url: string = "";
@@ -291,17 +291,20 @@ export class PokemonService {
   }
 
   filterPokemons(event: any){
+    // Funció dedicada a filtrar els pokemons
     this._filtratge++;
 
     const query = event.target.value.toLowerCase();
     console.log(query);
 
+    // En cas que el filtratge estigui activat per primer cop, es guarden els pokemons sense filtrar
     if (this._filtratge == 1) {
       this._unfilteredPokemons= this._allPokemon;
     }
 
-    this._allPokemon = this._allPokemon.filter(p => p.name.toLowerCase().includes(query));
+    this._allPokemon = this._allPokemon.filter(p => p.name.toLowerCase().includes(query)); // Es filtren els pokemons per nom
 
+    // En cas que el contingut del camp de text estigui buit, es recupera l'array sense filtrar, es buida el temporal i es retorna la variable de filtratge a zero
     if (event.target.value == "") {
       this._allPokemon = this._unfilteredPokemons;
       this._unfilteredPokemons = [];
@@ -310,23 +313,21 @@ export class PokemonService {
   }
 
   retrievePokemonByUrl(pokemons: any[]){ 
-    //if(this._pokemonTeam.length < 6){
-      this._pokemonTeam = [];
-      for (let index = 0; index < pokemons.length; index++) {
-        this._apiService.getPokemonByUrl(pokemons[index]).subscribe({
-          next: (response: any) => {
-            this._pokemonTeam.push(response);
-          },
-          error: () => {},
-          complete: () => {}
-        });
-      }
-    /*} else {
-      this.sixPokemons = true;
-    }*/
+    // Funció dedicada a retornar un pokemon concret per URL
+
+    this._pokemonTeam = [];
+    for (let index = 0; index < pokemons.length; index++) {
+      this._apiService.getPokemonByUrl(pokemons[index]).subscribe({
+        next: (response: any) => {
+          this._pokemonTeam.push(response);
+        },
+        error: () => {},
+        complete: () => {}
+      });
+    }
   }
 
-  //get pokemonremaster(): Atributs | null { return this._pokemonRemaster; }
+  // Getters dels diferents objectes i arrays
   get pokemon(): Pokemon | null { return this._pokemon; }
   get allPokemon(): Atributs[] { return this._allPokemon; }
   get allTypes(): Type[] { return this._allTypes; }

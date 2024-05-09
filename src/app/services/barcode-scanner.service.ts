@@ -5,10 +5,10 @@ import { Barcode, BarcodeFormat, BarcodeScanner, IsSupportedResult, PermissionSt
   providedIn: 'root'
 })
 export class BarcodeScannerService {
-//Tinc suport per utilitzar la camara o no
-  private _supported: boolean;
-  private _barcodes: Barcode[];
-  private _resultat: Barcode[];
+
+  private _supported: boolean; // Suport per la funcionalitat
+  private _barcodes: Barcode[]; // Codis 
+  private _resultat: Barcode[]; // Coids resultants
   
   constructor() {
     this._supported = false;
@@ -18,6 +18,7 @@ export class BarcodeScannerService {
   }
 
   isSupported(): void {
+    // Funció per comprovar si el dispositiu suporta la funcionalitat
     BarcodeScanner.isSupported().then(
       (result: IsSupportedResult) => {
         this._supported = result.supported;
@@ -35,6 +36,7 @@ export class BarcodeScannerService {
   }
 
   async scan(): Promise<boolean> {
+    // Funció dedicada a escanejar 
     const granted = await this.requestPermissions();
     if(granted) { 
       const options: ScanOptions = {
@@ -53,19 +55,23 @@ export class BarcodeScannerService {
   }
 
   get barcodes(): Barcode[] {
+    // Funció dedicada a retornar els codis
     return this._barcodes;
   }
 
   get supported(): boolean {
+    // Funció dedicada a retornar si el dispositiu suporta la funcionalitat
     return this._supported;
   }
   
   async isGoogleBarcodeScannerModuleAvailable(): Promise<boolean> {
+    // Funció dedicada a comprovar si el mòdul d'escaneig de Google està disponible
     const { available } = await BarcodeScanner.isGoogleBarcodeScannerModuleAvailable();
     return available;
   }
 
   get resultat(): Barcode[] {
+    // Funció dedicada a retornar els codis
     return this._resultat;
   }
 }
